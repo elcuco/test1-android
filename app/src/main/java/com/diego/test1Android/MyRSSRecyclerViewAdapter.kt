@@ -1,4 +1,4 @@
-package com.diego.test1_android
+package com.diego.test1Android
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 
 
-import com.diego.test1_android.RSSFragment.OnListFragmentInteractionListener
-import com.diego.test1_android.dummy.DummyContent.DummyItem
+import com.diego.test1Android.RSSFragment.OnListFragmentInteractionListener
+import com.diego.test1Android.dummy.DummyContent.DummyItem
 
 import kotlinx.android.synthetic.main.fragment_rss.view.*
 

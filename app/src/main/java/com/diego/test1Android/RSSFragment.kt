@@ -1,4 +1,4 @@
-package com.diego.test1_android
+package com.diego.test1Android
 
 import android.content.Context
 import android.os.Bundle
@@ -8,8 +8,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.diego.test1_android.dummy.DummyContent
-import com.diego.test1_android.dummy.DummyContent.DummyItem
+import com.diego.test1Android.dummy.DummyContent
+import com.diego.test1Android.dummy.DummyContent.DummyItem
 import com.prof.rssparser.Article
 import com.prof.rssparser.Parser
 import kotlinx.coroutines.CoroutineScope

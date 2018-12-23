@@ -1,16 +1,14 @@
-package com.diego.test1_android
+package com.diego.test1Android
 
-import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import com.diego.test1_android.dummy.DummyContent
+import com.diego.test1Android.dummy.DummyContent
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity(),
-        HomeFragment.OnFragmentInteractionListener,
         RSSFragment.OnListFragmentInteractionListener {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -51,10 +49,6 @@ class MainActivity : AppCompatActivity(),
         }
 
         return false
-    }
-
-    override fun onFragmentInteraction(uri: Uri) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onListFragmentInteraction(item: DummyContent.DummyItem?) {

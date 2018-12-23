@@ -1,4 +1,4 @@
-package com.diego.test1_android.dummy
+package com.diego.test1Android.dummy
 
 import java.util.*
 
