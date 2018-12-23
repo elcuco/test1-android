@@ -4,9 +4,8 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import com.diego.test1Android.dummy.DummyContent
+import com.prof.rssparser.Article
 import kotlinx.android.synthetic.main.activity_main.*
-
 
 class MainActivity : AppCompatActivity(),
         RSSFragment.OnListFragmentInteractionListener {
@@ -22,17 +21,20 @@ class MainActivity : AppCompatActivity(),
         displayView(navigation.selectedItemId)
     }
 
+    val homeFragment = HomeFragment()
+    val rssFragment = RSSFragment()
+
     fun displayView(viewId: Int): Boolean {
         var fragment: Fragment? = null
         var title = getString(R.string.app_name)
 
         when (viewId) {
             R.id.navigation_home -> {
-                fragment = HomeFragment()
+                fragment = homeFragment
                 title = "Home"
             }
             R.id.navigation_dashboard -> {
-                fragment = RSSFragment()
+                fragment = rssFragment
                 title = "RSS"
             }
         }
@@ -51,7 +53,7 @@ class MainActivity : AppCompatActivity(),
         return false
     }
 
-    override fun onListFragmentInteraction(item: DummyContent.DummyItem?) {
+    override fun onListFragmentInteraction(article: Article?) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
