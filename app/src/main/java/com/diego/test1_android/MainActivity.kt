@@ -9,7 +9,6 @@ import com.diego.test1_android.dummy.DummyContent
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-
 class MainActivity : AppCompatActivity(),
         HomeFragment.OnFragmentInteractionListener,
         RSSFragment.OnListFragmentInteractionListener {

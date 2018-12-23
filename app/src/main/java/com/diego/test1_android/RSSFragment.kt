@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import com.diego.test1_android.dummy.DummyContent
 import com.diego.test1_android.dummy.DummyContent.DummyItem
 
