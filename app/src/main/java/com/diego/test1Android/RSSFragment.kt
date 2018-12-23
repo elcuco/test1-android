@@ -8,18 +8,22 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.diego.test1Android.dummy.DummyContent
-import com.diego.test1Android.dummy.DummyContent.DummyItem
+import android.widget.RadioGroup
 import com.prof.rssparser.Article
 import com.prof.rssparser.Parser
+import info.hoang8f.android.segmented.SegmentedGroup
+import kotlinx.android.synthetic.main.fragment_rss_list.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class RSSFragment : Fragment() {
+class RSSFragment()
+    : Fragment() {
 
     private var listener: OnListFragmentInteractionListener? = null
+    private var rssAdapter = MyRSSRecyclerViewAdapter(ArrayList(), listener)
+    private var recyclerView : RecyclerView? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -27,16 +31,21 @@ class RSSFragment : Fragment() {
         val list : View = view.findViewById(R.id.list)
         if (list is RecyclerView) {
             with(list) {
+                recyclerView = list
                 layoutManager = LinearLayoutManager(context)
-                adapter = MyRSSRecyclerViewAdapter(DummyContent.ITEMS, listener)
+                adapter = rssAdapter
             }
+        }
+        val segmentedGroup = view.findViewById<SegmentedGroup>(R.id.segmentedGroup)
+        segmentedGroup.setOnCheckedChangeListener { _: RadioGroup, id: Int ->
+            displayFeeds(id)
         }
         return view
     }
 
     override fun onResume() {
         super.onResume()
-        fetchRss("business")
+        fetchRss("businessNews")
         fetchRss("entertainment")
         fetchRss("environment")
     }
@@ -52,9 +61,30 @@ class RSSFragment : Fragment() {
                 val parser = Parser()
                 val articleList = parser.getArticles(url)
                 feeds[feed] = articleList
-
+                displayFeeds(segmentedGroup.checkedRadioButtonId)
             } catch (e: Exception) {
                 print(e.message)
+            }
+        }
+    }
+
+    private fun displayFeeds(id: Int) {
+        when (id) {
+            R.id.businessRssButton -> {
+                rssAdapter.mValues = feeds.get("businessNews")
+                rssAdapter.notifyDataSetChanged()
+            }
+            R.id.entertainmentRssButton -> {
+                rssAdapter.mValues = mutableListOf()
+                var e : MutableList<Article>?
+
+                e = feeds.get("entertainment")
+                if (e!=null)
+                    rssAdapter.mValues!!.addAll(e)
+                e = feeds.get("environment")
+                if (e!=null)
+                    rssAdapter.mValues!! += e
+                rssAdapter.notifyDataSetChanged()
             }
         }
     }
@@ -73,19 +103,19 @@ class RSSFragment : Fragment() {
         listener = null
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson
-     * [Communicating with Other Fragments](http://developer.android.com/training/basics/fragments/communicating.html)
-     * for more information.
-     */
     interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onListFragmentInteraction(item: DummyItem?)
+        fun onListFragmentInteraction(article: Article?)
+    }
+
+    companion object {
+    @JvmStatic
+    fun newInstance(l: OnListFragmentInteractionListener) =
+            RSSFragment().apply {
+                this.listener = l
+
+                // I am pretty sure I am doing something wrong here...
+                // this smells bad.
+                this.rssAdapter.mListener = l
+            }
     }
 }

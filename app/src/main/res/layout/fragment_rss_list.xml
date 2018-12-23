@@ -17,7 +17,7 @@
         android:layout_marginBottom="8dp"
         android:layout_weight="1"
         app:layoutManager="LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@+id/segmented2"
+        app:layout_constraintBottom_toTopOf="@+id/segmentedGroup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -25,7 +25,7 @@
         tools:listitem="@layout/fragment_rss" />
 
     <info.hoang8f.android.segmented.SegmentedGroup xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/segmented2"
+        android:id="@+id/segmentedGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"

@@ -21,10 +21,10 @@ class MainActivity : AppCompatActivity(),
         displayView(navigation.selectedItemId)
     }
 
-    val homeFragment = HomeFragment()
-    val rssFragment = RSSFragment()
+    private val homeFragment = HomeFragment()
+    private val rssFragment = RSSFragment.newInstance(this)
 
-    fun displayView(viewId: Int): Boolean {
+    private fun displayView(viewId: Int): Boolean {
         var fragment: Fragment? = null
         var title = getString(R.string.app_name)
 
@@ -54,6 +54,6 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onListFragmentInteraction(article: Article?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        homeFragment.displayArticle(article)
     }
 }
