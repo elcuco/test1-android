@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-        displayView(R.id.navigation_home)
+        displayView(navigation.selectedItemId)
     }
 
     fun displayView(viewId: Int): Boolean {
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity(),
         }
 
         if (supportActionBar != null) {
-            supportActionBar!!.setTitle(title)
+            supportActionBar!!.title = title
         }
 
         if (fragment != null) {

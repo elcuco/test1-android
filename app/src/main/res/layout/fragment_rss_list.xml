@@ -1,40 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    tools:context=".RSSFragment"
+    tools:layout_editor_absoluteY="81dp">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list"
         android:name="com.diego.test1_android.RSSFragment"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginBottom="0dp"
-        android:layout_weight="1"
 
+        android:layout_marginBottom="8dp"
+        android:layout_weight="1"
         app:layoutManager="LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/segmented2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:context=".RSSFragment"
-        tools:listitem="@layout/fragment_rss"></android.support.v7.widget.RecyclerView>
+        tools:listitem="@layout/fragment_rss" />
 
     <info.hoang8f.android.segmented.SegmentedGroup xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
         android:id="@+id/segmented2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:baselineAligned="false"
+        android:checkedButton="@+id/businessRssButton"
         android:orientation="horizontal"
         segmentedgroup:layout_constraintBottom_toBottomOf="parent"
         segmentedgroup:layout_constraintEnd_toEndOf="parent"
@@ -43,7 +39,7 @@
         segmentedgroup:sc_corner_radius="10dp">
 
         <RadioButton
-            android:id="@+id/button21"
+            android:id="@+id/businessRssButton"
             style="@style/RadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,11 +47,11 @@
             android:text="Business" />
 
         <RadioButton
-            android:id="@+id/button22"
+            android:id="@+id/entertainmentRssButton"
             style="@style/RadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Entertainment" />
     </info.hoang8f.android.segmented.SegmentedGroup>
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
