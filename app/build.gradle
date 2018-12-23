@@ -38,6 +38,7 @@ dependencies {
     // 3rd party libraries
     implementation 'info.hoang8f:android-segmented:1.0.6'
     implementation 'com.imankur.library:analogclockview:1.0.0'
+    implementation 'com.prof.rssparser:rssparser:2.0.0'
 
 
 }

@@ -3,7 +3,6 @@ package com.diego.test1_android
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -11,43 +10,53 @@ import android.view.View
 import android.view.ViewGroup
 import com.diego.test1_android.dummy.DummyContent
 import com.diego.test1_android.dummy.DummyContent.DummyItem
+import com.prof.rssparser.Article
+import com.prof.rssparser.Parser
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
-/**
- * A fragment representing a list of Items.
- * Activities containing this fragment MUST implement the
- * [RSSFragment.OnListFragmentInteractionListener] interface.
- */
 class RSSFragment : Fragment() {
 
-    // TODO: Customize parameters
-    private var columnCount = 1
-
     private var listener: OnListFragmentInteractionListener? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        arguments?.let {
-            columnCount = it.getInt(ARG_COLUMN_COUNT)
-        }
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_rss_list, container, false)
-
-        // Set the adapter
         val list : View = view.findViewById(R.id.list)
         if (list is RecyclerView) {
             with(list) {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
-                }
+                layoutManager = LinearLayoutManager(context)
                 adapter = MyRSSRecyclerViewAdapter(DummyContent.ITEMS, listener)
             }
         }
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        fetchRss("business")
+        fetchRss("entertainment")
+        fetchRss("environment")
+    }
+
+    private val feeds = HashMap<String, MutableList<Article>>()
+    private val viewModelJob = Job()
+    private val coroutineScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+    private fun fetchRss(feed: String) {
+        coroutineScope.launch(context = Dispatchers.Main) {
+            try {
+                val basrUrl = "http://feeds.reuters.com/reuters/"
+                val url = basrUrl + feed
+                val parser = Parser()
+                val articleList = parser.getArticles(url)
+                feeds[feed] = articleList
+
+            } catch (e: Exception) {
+                print(e.message)
+            }
+        }
     }
 
     override fun onAttach(context: Context) {
@@ -78,20 +87,5 @@ class RSSFragment : Fragment() {
     interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
         fun onListFragmentInteraction(item: DummyItem?)
-    }
-
-    companion object {
-
-        // TODO: Customize parameter argument names
-        const val ARG_COLUMN_COUNT = "column-count"
-
-        // TODO: Customize parameter initialization
-        @JvmStatic
-        fun newInstance(columnCount: Int) =
-                RSSFragment().apply {
-                    arguments = Bundle().apply {
-                        putInt(ARG_COLUMN_COUNT, columnCount)
-                    }
-                }
     }
 }
